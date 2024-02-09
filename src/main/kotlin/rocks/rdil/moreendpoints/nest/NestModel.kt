@@ -103,9 +103,15 @@ internal object NestModel {
         val callExpr = expr.node.findChildByType(JSElementTypes.CALL_EXPRESSION)
         val params = callExpr?.findChildByType(JSElementTypes.ARGUMENT_LIST)
         var pathName: String? = null
+        var pathPsi: JSLiteralExpression? = null
 
         params?.findChildByType(JSElementTypes.LITERAL_EXPRESSION)?.let {
             pathName = removeStringWrapping(it.text)
+            try {
+                pathPsi = it.psi as JSLiteralExpression?
+            } catch (e: Exception) {
+                // oh no! anyway
+            }
         }
 
         // fall back to the method name if the path is not specified
@@ -132,8 +138,13 @@ internal object NestModel {
             }
         }
 
-        // TODO: parent always null
-        return NestMapping(SmartPointerManager.createPointer(expr), controller, verbText, pathName!!)
+        return NestMapping(
+            SmartPointerManager.createPointer(expr),
+            if (pathPsi !== null) SmartPointerManager.createPointer(pathPsi!!) else null,
+            controller,
+            verbText,
+            pathName!!
+        )
     }
 
     private fun getJsSearchScope(project: Project): GlobalSearchScope {
@@ -171,6 +182,10 @@ internal object NestModel {
         val forProject = getEndpointsCached(project)
 
         return forProject.filter { it.pointer.containingFile == file }
+    }
+
+    fun getEndpoints(project: Project): Collection<NestMapping> {
+        return getEndpointsCached(project)
     }
 
     private fun getEndpointsCached(project: Project): Collection<NestMapping> {

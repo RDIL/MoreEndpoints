@@ -1,6 +1,5 @@
 package rocks.rdil.moreendpoints.nest
 
-import com.intellij.lang.javascript.psi.JSLiteralExpression
 import com.intellij.microservices.url.Authority
 import com.intellij.microservices.url.UrlPath
 import com.intellij.microservices.url.UrlTargetInfo

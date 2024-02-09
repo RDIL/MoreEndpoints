@@ -48,7 +48,7 @@ class NestEndpointsProvider : EndpointsUrlTargetProvider<PsiFile, NestMapping> {
                 listOf(Authority.Placeholder()),
                 UrlPath.fromExactString(endpoint.getFullPath()),
                 setOf(endpoint.method),
-                endpoint.pointer.element!!
+                endpoint.pathPointer?.element ?: endpoint.pointer.element!!
             )
         )
     }

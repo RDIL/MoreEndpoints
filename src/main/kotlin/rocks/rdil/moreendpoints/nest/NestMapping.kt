@@ -1,5 +1,6 @@
 package rocks.rdil.moreendpoints.nest
 
+import com.intellij.lang.javascript.psi.JSLiteralExpression
 import com.intellij.lang.typescript.psi.impl.ES6DecoratorImpl
 import com.intellij.psi.SmartPsiElementPointer
 
@@ -13,9 +14,10 @@ import com.intellij.psi.SmartPsiElementPointer
  */
 class NestMapping(
     val pointer: SmartPsiElementPointer<ES6DecoratorImpl>,
+    val pathPointer: SmartPsiElementPointer<JSLiteralExpression>?,
     private val parent: NestController?,
     val method: String,
-    private val path: String
+    val path: String
 ) {
     /**
      * The name of the source file of the endpoint.

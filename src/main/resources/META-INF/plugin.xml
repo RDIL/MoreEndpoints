@@ -27,6 +27,7 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <microservices.endpointsProvider implementation="rocks.rdil.moreendpoints.nest.NestEndpointsProvider"/>
+        <microservices.urlResolverFactory implementation="rocks.rdil.moreendpoints.nest.NestUrlResolverFactory"/>
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
